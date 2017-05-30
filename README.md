@@ -1,7 +1,6 @@
 # mallory
-Deep Learning for malware detection
 
-Using a CNN to learn bimap images of malware from [MalIMG dataset](http://old.vision.ece.ucsb.edu/spam/malimg.shtml). 
+Code for training and testing a CNN to learn bimap images of malware from [MalIMG dataset](http://old.vision.ece.ucsb.edu/spam/malimg.shtml). The intuition is that a malware's binary can be turned into an image whose features can be learnt by a CNN. 
 
 ## Data
 
