@@ -30,7 +30,7 @@ paths.dofile('criteria.lua')
 paths.dofile('model.lua')
 paths.dofile('utils.lua')
 
-if opt.testMode ~= 'none' then
+if opt.testMode then
     paths.dofile('test.lua')
     test()
 else
