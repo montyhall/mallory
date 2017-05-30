@@ -1,33 +1,8 @@
---
--- User: peyman
--- Date: 12/1/16
--- Time: 8:08 AM
--- To change this template use File | Settings | File Templates.
---
---
+
 -- User: peyman
 -- Date: 11/2/16
 -- Time: 11:58 AM
--- To change this template use File | Settings | File Templates.
---
 
---
--- Ara2012 and Ara2013(Cannon) 7 megapixel camera -> width × height: 3108×2324 pixels
--- Ara2013 (Rasp. Pi) Raspberry Pi7 with 5 megapixel camera -> width × height: 2592×1944 pixels
-
--- 2655 files
-
---require 'image'
---require 'paths'
---require 'xlua'
---stringx = require 'pl.stringx'
---require 'lfs'
---
---local class = require('pl.class')
---local dir = require 'pl.dir'
---local tablex = require 'pl.tablex'
---local argcheck = require 'argcheck'
---require 'sys'
 
 require 'torch'
 torch.setdefaulttensortype('torch.FloatTensor')
@@ -151,13 +126,9 @@ function dataset:__init(...)
             end
         end
     end
-    -- classes[1]=SHARK
-    -- classPaths[1]=/Users/peyman/git/kagglefish/data/train/SHARK
-    -- classIndices[SHARK]=1
 
     self.classIndices = {}
     for k,v in ipairs(self.classes) do
-        --print('k: ' .. k .. ' v: ' .. v)
         self.classIndices[v] = k
     end
 
@@ -203,10 +174,6 @@ function dataset:__init(...)
     for i, class in ipairs(self.classes) do
         -- iterate over classPaths
         for j,path in ipairs(classPaths[i]) do
-            --find "/Users/peyman/git/kagglefish/data/train/SHARK"  -iname "*.jpg" -o -iname "*.png" -o -iname "*.JPG" -o -iname "*.PNG" -o -iname "*.JPEG" -o -iname "*.ppm" -o -iname "*.PPM" -o -iname "*.bmp" -o -iname "*.BMP" >>"/tmp/lua_UFGkZH"
-            -- classFindFiles[i] =
-             --/Users/peyman/git/kagglefish/data/train/SHARK/img_00096.jpg
-             --/Users/peyman/git/kagglefish/data/train/SHARK/img_00235.jpg
             local command = find .. ' "' .. path .. '" ' .. findOptions
                     .. ' >>"' .. classFindFiles[i] .. '" \n'
             tmphandle:write(command)
@@ -247,23 +214,14 @@ function dataset:__init(...)
     local s_data = self.imagePath:data() --Returns a LuaJIT FFI pointer to the raw data of the tensor
     local count = 0
     for line in io.lines(combinedFindList) do
-        --copy bytes of the path string (line) plus a zero-terminator to s_data
         ffi.copy(s_data, line)
         s_data = s_data + maxPathLength
         if self.verbose and count % 10000 == 0 then
-            --xlua.progress(count, length)
         end;
         count = count + 1
     end
-    --for i=1,self.imagePath:size(1) do
-    --    print(ffi.string((torch.data(self.imagePath[i]))))
-    --end
     self.numSamples = self.imagePath:size(1)
     print(self.numSamples ..  ' Total instances found.')
-    --==========================================================================
-    --print('Updating classList and imageClass appropriately')
-    -- classList[1] = 1 2 3 .. 176 <- 176 files for class 1 (shark)
-    -- imageClass:narrow(1,1,10) = 1 1 1 ..1 <- 10 1s for class 1 (shark)
     self.imageClass:resize(self.numSamples)
     local runningIndex = 0
     for i=1,#self.classes do
@@ -280,10 +238,6 @@ function dataset:__init(...)
         end
         runningIndex = runningIndex + length
     end
-    --print('imageClass: ',self.imageClass:narrow(1,1,10))
-    --==========================================================================
-    -- clean up temporary files
-    --print('Cleaning up temporary files')
     local tmpfilelistall = ''
     for i=1,#(classFindFiles) do
         tmpfilelistall = tmpfilelistall .. ' "' .. classFindFiles[i] .. '"'
@@ -294,8 +248,6 @@ function dataset:__init(...)
     end
     os.execute('rm -f '  .. tmpfilelistall)
     os.execute('rm -f "' .. combinedFindList .. '"')
-    --==========================================================================
-    --print('self.split: ' .. self.split)
     if self.split == 100 then
         self.validateIndicesSize = 0
     else
