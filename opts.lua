@@ -2,7 +2,6 @@
 -- User: peyman
 -- Date: 11/14/16
 -- Time: 9:50 PM
--- on cims: th -i main.lua -serializedData /scratch/peyman
 --
 
 require 'image'
@@ -21,7 +20,7 @@ function M.parse(arg)
 
     -- Dataset options
     cmd:option('-cache', 'results', 'subdirectory in which to save/log experiments')
-    cmd:option('-datasetRoot', '/home/faratin/git/mallorypoc/Data/malimg/', 'path to training data')
+    cmd:option('-datasetRoot', 'mallory/Data/malimg/', 'path to training data')
     cmd:option('-trainRoot', 'train', 'path to training data')
     cmd:option('-validationRoot', 'validation', 'path to validation data')
     cmd:option('-testRoot', 'test', 'path to testing data')
