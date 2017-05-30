@@ -5,4 +5,6 @@ Using a CNN to learn bimap images of malware from [MalIMG dataset](http://old.vi
 
 ## Running
 
+```bash
 > th main.lua -gpu -threads 4 -batchSize 30 
+```
