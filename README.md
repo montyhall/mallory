@@ -4,7 +4,7 @@ Code for training and testing a CNN to learn bimap images of malware. The intuit
 
 ## Data
 
-- [Download MalIMG dataset](http://old.vision.ece.ucsb.edu/spam/malimg.shtml) 
+- [Download](http://old.vision.ece.ucsb.edu/spam/malimg.shtml) MalIMG dataset
  
 - run `Data/split.lua` to split data into training, validation and test sets
 
